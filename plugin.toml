@@ -1,0 +1,25 @@
+schema      = "animus.plugin.v1"
+name        = "animus-notifier-http"
+version     = "0.1.0"
+plugin_kind = "notifier"
+description = "HTTP + Slack webhook notifier plugin for Animus (forwards daemon events to external systems with retry + dead-letter)."
+
+[capabilities]
+streaming    = false
+progress     = false
+cancellation = false
+
+methods = [
+  "notifier/notify",
+  "notifier/flush",
+  "notifier/schema",
+  "health/check",
+]
+
+[binary]
+default = "animus-notifier-http"
+
+# Connector credentials are referenced by env-var name from
+# `.animus/pm-config.json` per-project notification config; the plugin
+# itself does not declare specific env vars at the manifest layer
+# because each project can wire its own webhook URLs and headers.
